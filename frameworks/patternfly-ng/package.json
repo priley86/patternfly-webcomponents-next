@@ -1,40 +1,31 @@
 {
   "name": "patternfly-ng-wcs",
   "version": "0.0.0-semantically-released",
-  "description":
-    "A collection of PatternFly Angular components and other useful things to be shared.",
+  "description": "A collection of PatternFly Angular components and other useful things to be shared.",
   "main": "bundles/patternfly-ng.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "build":
-      "npm-run-all --serial remove-dist build:library build:demo copy-examples:demo",
-    "build:demo":
-      "webpack --config config/webpack.demo.js --progress --profile --bail",
+    "build": "npm-run-all --serial remove-dist webcomponents build:library build:demo copy-examples:demo",
+    "build:demo": "webpack --config config/webpack.demo.js --progress --profile --bail",
     "build:library": "gulp build",
-    "bundle":
-      "webpack --config config/webpack.prod.js --progress --profile --bail",
-    "clean":
-      "npm cache clean && npm run rimraf -- node_modules doc coverage dist distwatch bundles",
-    "cleanup":
-      "rimraf dist/package.json dist/bundles dist/src dist/index.d.ts dist/index.metadata.json dist/index.js dist/index.js.map dist/LICENSE dist/README.md",
+    "bundle": "webpack --config config/webpack.prod.js --progress --profile --bail",
+    "clean": "npm cache clean && npm run rimraf -- node_modules doc coverage dist distwatch bundles",
+    "cleanup": "rimraf dist/package.json dist/bundles dist/src dist/index.d.ts dist/index.metadata.json dist/index.js dist/index.js.map dist/LICENSE dist/README.md",
     "commit": "git-cz",
     "copy-examples:demo": "gulp copy-examples",
-    "minify":
-      "uglifyjs dist/bundles/ngx-widgets.js --screw-ie8 --compress --mangle --comments --output dist/bundles/patternfly-ng.min.js",
-    "publish-travis":
-      "node_modules/patternfly-eng-publish/script/publish-ghpages.sh -t dist-demo",
+    "minify": "uglifyjs dist/bundles/ngx-widgets.js --screw-ie8 --compress --mangle --comments --output dist/bundles/patternfly-ng.min.js",
+    "publish-travis": "node_modules/patternfly-eng-publish/script/publish-ghpages.sh -t dist-demo",
     "reinstall": "npm run clean && npm install",
     "remove-dist": "rimraf build dist dist-watch dist-demo",
     "rimraf": "rimraf",
-    "start:demo":
-      "webpack-dev-server --config config/webpack.demo.js --progress --host 0.0.0.0 --port 8001 --profile --watch --content-base dist-demo",
+    "start:demo": "webpack-dev-server --config config/webpack.demo.js --progress --host 0.0.0.0 --port 8001 --profile --watch --content-base dist-demo",
     "test": "karma start",
     "transpile": "gulp transpile",
-    "semantic-release":
-      "semantic-release pre && copy package.json npm-shrinkwrap.json dist && npm publish dist && semantic-release post",
+    "semantic-release": "semantic-release pre && copy package.json npm-shrinkwrap.json dist && npm publish dist && semantic-release post",
     "semantic-release-post": "semantic-release post",
-    "semantic-release-pre": "semantic-release pre"
+    "semantic-release-pre": "semantic-release pre",
+    "webcomponents": "mkdir -p src/app/web-components && cp -r ../../src/*  src/app/web-components"
   },
   "license": "Apache-2.0",
   "contributors": [],
@@ -76,6 +67,8 @@
     "@angular/platform-browser-dynamic": "^4.0.1",
     "@angular/platform-server": "^4.0.1",
     "@angular/router": "^4.0.1",
+    "@webcomponents/custom-elements": "^1.0.0",
+    "@webcomponents/webcomponentsjs": "1.0.0",
     "angular-tree-component": "4.1.0",
     "c3": "^0.4.15",
     "core-js": "2.4.1",
@@ -83,6 +76,7 @@
     "ngx-bootstrap": "1.8.0",
     "patternfly": "^3.26.1",
     "rxjs": "5.0.1",
+    "skatejs": "^4.6.7",
     "zone.js": "0.8.4"
   },
   "devDependencies": {

@@ -11,35 +11,39 @@
  * file for our client, when we run test, it will compile and bundle them
  * all here! Crazy huh. So we need to do some setup
  */
-Error.stackTraceLimit = Infinity;
+Error.stackTraceLimit = Infinity
 
-require('core-js/es6');
-require('core-js/es7/reflect');
+require('core-js/es6')
+require('core-js/es7/reflect')
 
 // Typescript emit helpers polyfill
-require('reflect-metadata');
-require('ts-helpers');
+require('reflect-metadata')
+require('ts-helpers')
 
-require('zone.js/dist/zone');
-require('zone.js/dist/long-stack-trace-zone');
-require('zone.js/dist/proxy'); // since zone.js 0.6.15
-require('zone.js/dist/sync-test');
-require('zone.js/dist/jasmine-patch'); // put here since zone.js 0.6.14
-require('zone.js/dist/async-test');
-require('zone.js/dist/fake-async-test');
+// Web Component polyfills
+require('@webcomponents/webcomponentsjs/webcomponents-sd-ce.js')
+require('@webcomponents/custom-elements/src/native-shim.js')
+
+require('zone.js/dist/zone')
+require('zone.js/dist/long-stack-trace-zone')
+require('zone.js/dist/proxy') // since zone.js 0.6.15
+require('zone.js/dist/sync-test')
+require('zone.js/dist/jasmine-patch') // put here since zone.js 0.6.14
+require('zone.js/dist/async-test')
+require('zone.js/dist/fake-async-test')
 
 // RxJS
-require('rxjs/Rx');
+require('rxjs/Rx')
 
-require ('patternfly/dist/js/patternfly-settings');
+require('patternfly/dist/js/patternfly-settings')
 
-var testing = require('@angular/core/testing');
-var browser = require('@angular/platform-browser-dynamic/testing');
+var testing = require('@angular/core/testing')
+var browser = require('@angular/platform-browser-dynamic/testing')
 
 testing.TestBed.initTestEnvironment(
   browser.BrowserDynamicTestingModule,
   browser.platformBrowserDynamicTesting()
-);
+)
 
 /*
  * Ok, this is kinda crazy. We can use the context method on
@@ -50,7 +54,7 @@ testing.TestBed.initTestEnvironment(
  * any file that ends with spec.ts and get its path. By passing in true
  * we say do this recursively
  */
-var testContext = require.context('../src', true, /\.spec\.ts/);
+var testContext = require.context('../src', true, /\.spec\.ts/)
 
 /*
  * get all the files, for each file, call the context function
@@ -58,8 +62,8 @@ var testContext = require.context('../src', true, /\.spec\.ts/);
  * loop and require those spec files here
  */
 function requireAll(requireContext) {
-  return requireContext.keys().map(requireContext);
+  return requireContext.keys().map(requireContext)
 }
 
 // requires and returns all modules that match
-var modules = requireAll(testContext);
+var modules = requireAll(testContext)

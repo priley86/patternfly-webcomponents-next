@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 //  import example modules
 
 import { SampleExampleModule } from '../app/sample/examples/sample-example.module';
+import { HelloExampleModule } from '../app/hello/examples/hello-example.module';
 import { WelcomeComponent } from './components/welcome.component';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { WelcomeComponent } from './components/welcome.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    SampleExampleModule
+    SampleExampleModule,
+    HelloExampleModule
   ],
   declarations: [AppComponent, WelcomeComponent],
   providers: [],

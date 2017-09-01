@@ -3,7 +3,7 @@
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "declaration": true,
+    "declaration": false, // https://github.com/Microsoft/TypeScript/issues/7546 conflicts w/ allowJS
     "stripInternal": true,
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
@@ -15,6 +15,7 @@
     "strictNullChecks": false,
     "noImplicitAny": true,
     "allowUnreachableCode": false,
+    "allowJs": true,
     "baseUrl": ".",
     "rootDir": "build",
     "outDir": "dist",
@@ -25,14 +26,9 @@
       "rxjs/*": ["node_modules/rxjs/*"],
       "moment": ["node_modules/moment"]
     },
-    "lib": [
-      "es2015",
-      "dom"
-    ]
+    "lib": ["es2017", "dom"]
   },
-  "files": [
-    "build/index.ts"
-  ],
+  "files": ["build/index.ts"],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true

@@ -1,0 +1,47 @@
+<div class="padding-15">
+  <div class="row padding-bottom-15">
+    <div class="col-xs-12">
+      <h4>Hello Component Example</h4>
+      <hr/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <pf-hello-component [name]="name"></pf-hello-component>
+      </div>
+    </div>
+  </div>
+  <div class="row padding-bottom-15 padding-top-15">
+    <div class="col-xs-12">
+      <h4>Component Options</h4>
+      <hr/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 sample-form">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label" for="nameText">Name: </label>
+          <input id="nameText" name="nameText" type="text" [(ngModel)]="name" />
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row padding-bottom-15 padding-top-15">
+    <div class="col-xs-12">
+      <h4>Code</h4>
+      <hr/>
+    </div>
+  </div>
+  <div>
+    <tabset>
+      <tab heading="html">
+        <include-content src="src/app/hello/examples/hello-example.component.html"></include-content>
+      </tab>
+      <tab heading="typescript">
+        <include-content src="src/app/hello/examples/hello-example.component.ts"></include-content>
+      </tab>
+    </tabset>
+  </div>
+</div>
