@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hello renders default properly 1`] = `
+<pf-hello
+  name="I Love Web Components!"
+/>
+`;
+
+exports[`Hello renders name properly 1`] = `
+<pf-hello
+  name="Bob"
+/>
+`;
