@@ -1,29 +1,31 @@
-import { default as tmpl } from './pf-tooltip.template'
+import { default as tmpl } from './pf-popover.template'
 import { pfUtil } from '../pf-utils/pf-utils'
-import './pf-tooltip.less'
+import './pf-popover.less'
 
 /**
- * <b>&lt;pf-tooltip&gt;</b> element for Patternfly Web Components
+ * <b>&lt;pf-popover&gt;</b> element for Patternfly Web Components
  *
  * @example {@lang xml}
- * <pf-tooltip animation="fade" target-selector="#btn-left" placement="left" delay="100" duration="150" container-selector="#container"></pf-alert>
+ * <pf-popover animation="fade" target-selector="#btn-left" placement="left" delay="100" duration="150" popover-title="Popover Title" dismissible="true" container-selector="#container"></pf-alert>
  *
  * @prop {string} animation the animation class
  * @prop {string} target-selector the target element selector
  * @prop {string} placement left, right, top, bottom
+ * @prop {string} popover-title the title of popover
+ * @prop {string} dismissible true, false
  * @prop {number} delay animation delay (ms)
  * @prop {number} duration animation duration (ms)
  * @prop {string} container-selector the container element selector
  */
 
-export default class PfTooltip extends HTMLElement {
+export default class PfPopover extends HTMLElement {
   /**
-   * Reinitializes tooltip component with attribute values and resets content
+   * Reinitializes popover component with attribute values and resets content
    */
   init() {
     this.element = this
     this.content = this._innerHtml || this.element.innerHTML
-    this.tooltip = null
+    this.popover = null
     this._targetSelector = this.getAttribute('target-selector')
     this._target = this._targetSelector
       ? document.querySelector(this._targetSelector)
@@ -31,15 +33,16 @@ export default class PfTooltip extends HTMLElement {
     this._animation = this.getAttribute('animation')
       ? this.getAttribute('animation')
       : 'fade'
+    this._popoverTitle = this.getAttribute('popover-title')
+      ? this.getAttribute('popover-title')
+      : ''
+    this._dismissible = this.getAttribute('dismissible')
+      ? this.getAttribute('dismissible')
+      : false
     this._placement = this.getAttribute('placement')
       ? this.getAttribute('placement')
       : 'right'
     this._delay = parseInt(this.getAttribute('delay')) || 100
-    this._mouseHover =
-      'onmouseleave' in document
-        ? ['mouseenter', 'mouseleave']
-        : ['mouseover', 'mouseout']
-    this._tipPositions = /\b(top|bottom|left|top)+/
     this._duration =
       pfUtil.isMSIE && pfUtil.isMSIE < 10
         ? 0
@@ -52,18 +55,31 @@ export default class PfTooltip extends HTMLElement {
     if (this._target) {
       // create open event listeners
       this._target.addEventListener(
-        this._mouseHover[0],
+        'click',
         e => {
-          this.open(e)
+          if (this.popover !== null) {
+            this.close(e)
+          } else {
+            this.open(e)
+          }
         },
         false
       )
+    }
 
-      // create close event listener
-      this._target.addEventListener(
-        this._mouseHover[1],
-        e => {
-          this.close(e)
+    if (this._dismissible) {
+      document.addEventListener(
+        'click',
+        event => {
+          if (
+            this.popover !== null &&
+            event.target ===
+              this.popover.querySelector(
+                'div.popover > h3.popover-title .close > span.pficon-close'
+              )
+          ) {
+            this.close()
+          }
         },
         false
       )
@@ -78,7 +94,7 @@ export default class PfTooltip extends HTMLElement {
 
     // handleContentChanged
     this.element.addEventListener(
-      'pf-tooltip.handleContentChanged',
+      'handleContentChanged',
       e => {
         this.init()
       },
@@ -96,7 +112,8 @@ export default class PfTooltip extends HTMLElement {
       'placement',
       'delay',
       'duration',
-      'container-selector'
+      'container-selector',
+      'popover-title'
     ]
   }
 
@@ -111,7 +128,7 @@ export default class PfTooltip extends HTMLElement {
     this.init()
   }
 
-  /*
+  /**
    * An instance of the element is created or upgraded
    */
   constructor() {
@@ -122,14 +139,24 @@ export default class PfTooltip extends HTMLElement {
   }
 
   /**
-   * Sets tooltip the inner HTML
+   * Sets popover the inner HTML
    * @param {string} html string
    */
   setInnerHtml(html) {
     this._innerHtml = html
-    this.element.dispatchEvent(
-      new CustomEvent('pf-tooltip.handleContentChanged', {})
-    )
+    this.element.dispatchEvent(new CustomEvent('handleContentChanged', {}))
+  }
+
+  /**
+   * public handler
+   */
+  toggle() {
+    this.init()
+    if (this.popover === null) {
+      this.open()
+    } else {
+      this.close()
+    }
   }
 
   /**
@@ -154,7 +181,7 @@ export default class PfTooltip extends HTMLElement {
   }
 
   /**
-   * Get the tooltip container-selector
+   * Get the popover container-selector
    *
    * @returns {string} The container element selector
    */
@@ -163,7 +190,7 @@ export default class PfTooltip extends HTMLElement {
   }
 
   /**
-   * Set the tooltip container-selector
+   * Set the popover container-selector
    *
    * @param {string} value The container element selector
    */
@@ -218,18 +245,18 @@ export default class PfTooltip extends HTMLElement {
   }
 
   /**
-   * Get the placement position
+   * Get the placement this._placement
    *
-   * @returns {string} The placement position left, top, bottom, right
+   * @returns {string} The placement this._placement left, top, bottom, right
    */
   get placement() {
     return this._placement
   }
 
   /**
-   * Set placement position
+   * Set placement this._placement
    *
-   * @param {string} value The placement position left, top, bottom, right
+   * @param {string} value The placement this._placement left, top, bottom, right
    */
   set placement(value) {
     if (this._placement !== value) {
@@ -239,10 +266,10 @@ export default class PfTooltip extends HTMLElement {
   }
 
   /**
-   * Get the target-selector
-   *
-   * @returns {string} The target element selector
-   */
+  * Get the target-selector
+  *
+  * @returns {string} The target element selector
+  */
   get targetSelector() {
     return this._targetSelector
   }
@@ -261,35 +288,56 @@ export default class PfTooltip extends HTMLElement {
   }
 
   /**
-   * The tooltip open method
+   * Get the popover-title
+   *
+   * @return {string} the title of popover
    */
+  get popoverTitle() {
+    return this._popoverTitle
+  }
+
+  /**
+   * Set popover-title
+   *
+   * @param {string} value The title of popover
+   */
+  set popoverTitle(value) {
+    if (this._popoverTitle !== value) {
+      this._popoverTitle = value
+      this.setAttribute('popover-title', value)
+    }
+  }
+
+  /**
+     * The popover open method
+     */
   open() {
     clearTimeout(this._timer)
     this._timer = setTimeout(() => {
-      if (this.tooltip === null) {
-        this._createTooltip()
-        this._styleTooltip()
+      if (this.popover === null) {
+        this._createPopover()
+        this._stylePopover()
         this._checkPlacement()
-        this._showTooltip()
+        this._showPopover()
         // notify frameworks
-        this.dispatchEvent(new CustomEvent('pf-tooltip.opened', {}))
+        this.dispatchEvent(new CustomEvent('pf-popover.opened', {}))
       }
     }, 20)
   }
 
   /**
-   * The tooltip close method
+   * The popover close method
    */
   close() {
     clearTimeout(this._timer)
     this._timer = setTimeout(() => {
-      if (this.tooltip && this.tooltip !== null) {
-        pfUtil.removeClass(this.tooltip, 'in')
+      if (this.popover && this.popover !== null) {
+        pfUtil.removeClass(this.popover, 'in')
         setTimeout(() => {
-          this._removeTooltip()
+          this._removePopover()
           // notify frameworks
-          this.dispatchEvent(new CustomEvent('pf-tooltip.closed', {}))
-          // reset position after tooltip is closed
+          this.dispatchEvent(new CustomEvent('pf-popover.closed', {}))
+          // reset position after popover is closed
           this._placement = this.getAttribute('placement')
             ? this.getAttribute('placement')
             : 'right'
@@ -299,39 +347,52 @@ export default class PfTooltip extends HTMLElement {
   }
 
   /**
-   * Removes the tooltip
+   * Removes the popover
    * @private
    */
-  _removeTooltip() {
-    this.tooltip && this._container.removeChild(this.tooltip)
-    this.tooltip = null
+  _removePopover() {
+    this.popover && this._container.removeChild(this.popover)
+    this.popover = null
   }
 
   /**
-   * Creates the tooltip
+   * Creates the popover
    * @private
    */
-  _createTooltip() {
+  _createPopover() {
     let clone = document.importNode(this._template.content, true)
-    let tooltipInner = clone.querySelector('.tooltip-inner')
+    let popoverInner = clone.querySelector('.popover-content')
+    let popovertitle = clone.querySelector('.popover-title')
+    let closeButton = document.createElement('template')
+    closeButton.innerHTML = `<button type="button" class="close"><span class="pficon pficon-close"></span></button>`
 
-    // set tooltip content
-    tooltipInner.innerHTML = this.innerHTML
+    if (this._popoverTitle === '' && !this._dismissible) {
+      popovertitle.parentNode.removeChild(popovertitle)
+    } else {
+      // set popover title
+      popovertitle.innerHTML = this._popoverTitle
+
+      if (this._dismissible) {
+        popovertitle.appendChild(closeButton.content)
+      }
+    }
+    // set popover content
+    popoverInner.innerHTML = this.content
 
     // append to the container
     this._container.appendChild(clone)
 
     // set reference to appended node
-    let tooltips = this._container.querySelectorAll('.tooltip')
-    this.tooltip = tooltips[tooltips.length - 1]
-    this.tooltip.setAttribute(
+    this.popover = this._container.querySelectorAll('.popover:last-child')[0]
+    this.popover.style.display = 'block'
+    this.popover.setAttribute(
       'class',
-      `tooltip ${this._placement} ${this._animation}`
+      `popover ${this._placement} ${this._animation}`
     )
   }
 
   /**
-   * update the placement of tooltip
+   * update the placement of popover
    */
   _updatePlacement() {
     switch (this._placement) {
@@ -349,11 +410,11 @@ export default class PfTooltip extends HTMLElement {
   }
 
   /**
-   * Styles the tooltip based on placement attribute
+   * Styles the popover based on placement attribute
    * @private
    */
-  _styleTooltip() {
-    const rect = this._target.getBoundingClientRect() // tooltip real dimensions
+  _stylePopover() {
+    const rect = this._target.getBoundingClientRect() // popover real dimensions
 
     const // link rect | window vertical and horizontal scroll
     scroll = pfUtil.getScroll()
@@ -361,66 +422,71 @@ export default class PfTooltip extends HTMLElement {
     const // link real dimensions
     linkDimensions = { w: rect.right - rect.left, h: rect.bottom - rect.top }
 
-    const tooltipDimensions = {
-      w: this.tooltip.offsetWidth,
-      h: this.tooltip.offsetHeight
+    const popoverDimensions = {
+      w: this.popover.offsetWidth,
+      h: this.popover.offsetHeight
     }
 
     // apply styling
-    if (/top/.test(this._placement)) {
-      // TOP
-      this.tooltip.style.top = `${rect.top + scroll.y - tooltipDimensions.h}px`
-      this.tooltip.style.left = `${rect.left +
-        scroll.x -
-        tooltipDimensions.w / 2 +
-        linkDimensions.w / 2}px`
-    } else if (/bottom/.test(this._placement)) {
-      // BOTTOM
-      this.tooltip.style.top = `${rect.top + scroll.y + linkDimensions.h}px`
-      this.tooltip.style.left = `${rect.left +
-        scroll.x -
-        tooltipDimensions.w / 2 +
-        linkDimensions.w / 2}px`
-    } else if (/left/.test(this._placement)) {
-      // LEFT
-      this.tooltip.style.top = `${rect.top +
-        scroll.y -
-        tooltipDimensions.h / 2 +
-        linkDimensions.h / 2}px`
-      this.tooltip.style.left = `${rect.left +
-        scroll.x -
-        tooltipDimensions.w}px`
-    } else if (/right/.test(this._placement)) {
-      // RIGHT
-      this.tooltip.style.top = `${rect.top +
-        scroll.y -
-        tooltipDimensions.h / 2 +
-        linkDimensions.h / 2}px`
-      this.tooltip.style.left = `${rect.left + scroll.x + linkDimensions.w}px`
-    }
+    switch (this._placement) {
+      case 'top': // TOP
+        this.popover.style.top = `${rect.top +
+          scroll.y -
+          popoverDimensions.h}px`
+        this.popover.style.left = `${rect.left +
+          scroll.x -
+          popoverDimensions.w / 2 +
+          linkDimensions.w / 2}px`
+        break
 
-    this.tooltip.className.indexOf(this._placement) === -1 &&
-      (this.tooltip.className = this.tooltip.className.replace(
+      case 'bottom': // BOTTOM
+        this.popover.style.top = `${rect.top + scroll.y + linkDimensions.h}px`
+        this.popover.style.left = `${rect.left +
+          scroll.x -
+          popoverDimensions.w / 2 +
+          linkDimensions.w / 2}px`
+        break
+
+      case 'left': // LEFT
+        this.popover.style.top = `${rect.top +
+          scroll.y -
+          popoverDimensions.h / 2 +
+          linkDimensions.h / 2}px`
+        this.popover.style.left = `${rect.left +
+          scroll.x -
+          popoverDimensions.w}px`
+        break
+
+      case 'right': // RIGHT
+        this.popover.style.top = `${rect.top +
+          scroll.y -
+          popoverDimensions.h / 2 +
+          linkDimensions.h / 2}px`
+        this.popover.style.left = `${rect.left + scroll.x + linkDimensions.w}px`
+        break
+    }
+    this.popover.className.indexOf(this._placement) === -1 &&
+      (this.popover.className = this.popover.className.replace(
         /\b(top|bottom|left|right)+/,
         this._placement
       ))
   }
 
   /**
-   * check the placement of tooltip
+   * check the placement of popover
    */
   _checkPlacement() {
-    if (!pfUtil.isElementInViewport(this.tooltip)) {
+    if (!pfUtil.isElementInViewport(this.popover)) {
       this._placement = this._updatePlacement()
-      this._styleTooltip()
+      this._stylePopover()
     }
   }
 
   /**
-   * Makes tooltip visible
+   * Makes popover visible
    * @private
    */
-  _showTooltip() {
-    !/\bin/.test(this.tooltip.className) && pfUtil.addClass(this.tooltip, 'in')
+  _showPopover() {
+    !/\bin/.test(this.popover.className) && pfUtil.addClass(this.popover, 'in')
   }
 }
