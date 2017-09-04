@@ -1,4 +1,4 @@
-# Patternfly React Web Components
+# React Patternfly Web Components
 
 This project provides integration for the React.js framework with Patternfly Web Components.
 
