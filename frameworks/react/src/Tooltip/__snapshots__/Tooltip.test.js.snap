@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip renders default properly 1`] = `
+<div>
+  <pf-tooltip
+    container-selector={undefined}
+    id="tooltip-right"
+    placement="right"
+    target-selector="#btn-right"
+    targetSelector="#btn-right"
+  >
+    On the right.
+  </pf-tooltip>
+  <button
+    aria-describedby="tooltip-right"
+    className="btn btn-danger"
+    id="btn-right"
+  >
+    Right
+  </button>
+</div>
+`;

@@ -17,7 +17,9 @@ class Tooltip extends React.Component {
 
   handleContentChanged() {
     var event = new CustomEvent('pf-tooltip.handleContentChanged', {})
-    this.pfTooltip.dispatchEvent(event)
+    if (this.pfTooltip) {
+      this.pfTooltip.dispatchEvent(event)
+    }
   }
 
   render() {

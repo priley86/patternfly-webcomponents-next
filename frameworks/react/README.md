@@ -1,9 +1,20 @@
-# Patternfly React WCs
+# Patternfly React Web Components
 
-A demo to showcase Patternfly Web Components + Patternfly React Shims
+This project provides integration for the React.js framework with Patternfly Web Components.
 
+## Getting Started
+To consume React Patternfly Web Components, install `patternfly-react-wcs`:
+```
+$ npm i --save patternfly-react-wcs
+```
+and then consume the React UI modules in your app:
+```
+import { Tooltip } from 'patternfly-react-wcs';
+```
 
-## Storybook UI Development
+## Development
+
+### Storybook UI Development
 
 How to use Storybook locally:
 ```
@@ -28,3 +39,5 @@ For example, to deploy to `feature-branch` target:
 ```
 npm run storybook:deploy -- --branch=feature-branch
 ```
+### Web Components with Skate Js
+This demo uses Skate JS to define cross framework compatible Web Components in ES6. Skate JS can be used to optionally define Web Components alongside Google's [Incremental DOM](https://github.com/google/incremental-dom). Read more on Skate JS [here](https://skatejs.gitbooks.io/skatejs/content/).
