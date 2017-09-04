@@ -5,30 +5,27 @@
   },
   "main": "dist/index.bundle.js",
   "version": "0.0.0-semantically-released",
-  "description":
-    "This library provides a set of common Web Components for use with the PatternFly reference implementation.",
+  "description": "This library provides a set of common Web Components for use with the PatternFly reference implementation.",
   "author": "Red Hat",
   "license": "Apache-2.0",
   "scripts": {
     "ng": "ng",
     "start": "webpack-dev-server --port=4200",
     "build": "npm-run-all --serial webcomponents no:react:types webpack",
-    "test": "npm run no:react:types && karma start ./karma.conf.js",
+    "test": "npm-run-all --serial no:react:types lint",
+    "test:broken": "npm-run-all --serial no:react:types lint karma",
+    "karma": "karma start ./karma.conf.js",
     "no:react:types": "rm -rf node_modules/@types/react",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
     "prepree2e": "npm start",
-    "pree2e":
-      "webdriver-manager update --standalone false --gecko false --quiet",
+    "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "storybook": "start-storybook -c storybook -p 9009 -s src/assets",
-    "build-storybook":
-      "npm run webcomponents && build-storybook -c storybook -s src",
+    "build-storybook": "npm run webcomponents && build-storybook -c storybook -s src",
     "storybook:deploy": "storybook-to-ghpages",
-    "semantic-release":
-      "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "webpack": "webpack",
-    "webcomponents":
-      "mkdir -p src/app/web-components && cp -r ../../src/*  src/app/web-components"
+    "webcomponents": "mkdir -p src/app/web-components && cp -r ../../src/*  src/app/web-components"
   },
   "private": true,
   "dependencies": {
