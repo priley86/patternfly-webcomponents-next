@@ -1,6 +1,7 @@
 {
   "rules": {
-    "prettier/prettier": ["error", { "semi": false, "singleQuote": true }]
+    "prettier/prettier": ["error", { "semi": false, "singleQuote": true }],
+    "no-debugger": ["warn"]
   },
   "extends": ["standard", "prettier"],
   "env": {

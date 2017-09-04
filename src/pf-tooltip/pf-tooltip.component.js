@@ -86,6 +86,18 @@ export default class PfTooltip extends HTMLElement {
     )
   }
 
+  /**
+   * public handler
+   */
+  toggle() {
+    this.init()
+    if (this.tooltip === null) {
+      this.open()
+    } else {
+      this.close()
+    }
+  }
+
   /*
    * Only attributes listed in the observedAttributes property will receive this callback
    */
