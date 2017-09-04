@@ -4,9 +4,7 @@
 import '../src/polyfills'
 
 import { configure } from '@storybook/angular'
-// import infoAddon from '@storybook/addon-info'
 
-// setAddon(infoAddon)
 const req = require.context('../src', true, /.stories.ts$/)
 
 function loadStories() {

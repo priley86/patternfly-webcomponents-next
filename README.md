@@ -19,7 +19,7 @@ customElements.define('pf-popover', PfPopover)
 ## Framework Integration
 Web components implemented as ES6 modules can be consumed and extended by any framework. However, to ease integration for the consumer, a framework shim (wrapper) is also provided. Framework shims can be consumed optionally and will simplify the integration to ensure a similiar framework experience.
 
-This project includes visual UI tests (stories) for various UI frameworks alongside web components using [Storybook](https://storybook.js.org/). The goal of Storybook is to aid in development, testing, and documentation of UI components.
+This project includes visual UI tests (stories) for various UI frameworks using [Storybook](https://storybook.js.org/). Storybook provides a full fledged development environment, testing and documentation addons, along with the ability to deploy a contributor's storybook. This allows you to develop and test component interactions in isolation, which can improve component reuse, testability, and development speed.
 
 ### Angular Js
 For details on Angular Js and Patternfly Web Components integration, see the [Angular Patternfly Web Components](frameworks/angular) guide.
@@ -48,3 +48,6 @@ Before opening your pull request, please ensure all framework builds and integra
 $ npm run build:all
 $ npm run test:all
 ``` 
+
+### Web Components with Skate Js
+This demo uses Skate JS to define cross framework compatible Web Components in ES6. Skate JS can be used to optionally define Web Components alongside Google's [Incremental DOM](https://github.com/google/incremental-dom). Read more on [Skate JS](https://skatejs.gitbooks.io/skatejs/content/docs/api/vdom.html#incremental-dom).

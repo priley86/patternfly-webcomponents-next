@@ -5,8 +5,7 @@
   },
   "main": "dist/index.bundle.js",
   "version": "0.0.0-semantically-released",
-  "description":
-    "This library provides a set of common Web Components for use with the PatternFly reference implementation.",
+  "description": "This library provides a set of common Web Components for use with the PatternFly reference implementation.",
   "author": "Red Hat",
   "license": "Apache-2.0",
   "scripts": {
@@ -20,18 +19,14 @@
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
     "prepree2e": "npm start",
-    "pree2e":
-      "webdriver-manager update --standalone false --gecko false --quiet",
+    "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "storybook": "start-storybook -c storybook -p 9009 -s src/assets",
-    "build-storybook":
-      "npm run webcomponents && build-storybook -c storybook -s src",
+    "build-storybook": "npm run webcomponents && build-storybook -c storybook -s src",
     "webpack": "webpack",
-    "webcomponents":
-      "mkdir -p src/app/web-components && cp -r ../../src/*  src/app/web-components",
+    "webcomponents": "mkdir -p src/app/web-components && cp -r ../../src/*  src/app/web-components",
     "storybook:deploy": "storybook-to-ghpages",
     "prepublish": "npm run build",
-    "semantic-release":
-      "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "dependencies": {
     "@angular/animations": "^5.0.0-beta.3",
@@ -95,11 +90,11 @@
     "postcss-url": "^5.1.2",
     "protractor": "~5.1.2",
     "raw-loader": "^0.5.1",
-    "sass-loader": "^4.1.1",
     "script-loader": "^0.7.0",
     "semantic-release": "^6.3.6",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
+    "to-string-loader": "^1.1.5",
     "ts-node": "~3.2.0",
     "tslint": "~5.3.2",
     "typescript": "^2.4.0",

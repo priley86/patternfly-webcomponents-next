@@ -2,7 +2,7 @@
 
 exports[`Hello renders default properly 1`] = `
 <pf-hello
-  name="I Love Web Components!"
+  name="I 💗 Web Components!"
 />
 `;
 

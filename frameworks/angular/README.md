@@ -63,4 +63,4 @@ npm run storybook:deploy -- --branch=feature-branch
 ```
 
 ### Web Components with Skate Js
-This demo uses Skate JS to define cross framework compatible Web Components in ES6. Skate JS can be used to optionally define Web Components alongside Google's [Incremental DOM](https://github.com/google/incremental-dom). Read more on Skate JS [here](https://skatejs.gitbooks.io/skatejs/content/).
+This demo uses Skate JS to define cross framework compatible Web Components in ES6. Skate JS can be used to optionally define Web Components alongside Google's [Incremental DOM](https://github.com/google/incremental-dom). Read more on [Skate JS](https://skatejs.gitbooks.io/skatejs/content/docs/api/vdom.html#incremental-dom).

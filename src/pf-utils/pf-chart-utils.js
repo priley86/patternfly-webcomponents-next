@@ -1,8 +1,6 @@
 /**
- * --------------------------------------------------------------------------
- * PfChartUtil
- * Internal Utility Functions for Patternfly Web Components
- * --------------------------------------------------------------------------
+ * pf-chart-utils.js
+ * Chart Utility Functions for Patternfly Web Components
  */
 
 class PfChartUtil {

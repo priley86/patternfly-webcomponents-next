@@ -18,7 +18,7 @@ Hello.propTypes = {
   name: PropTypes.string
 }
 Hello.defaultProps = {
-  name: 'I Love Web Components!'
+  name: 'I 💗 Web Components!'
 }
 
 export default Hello

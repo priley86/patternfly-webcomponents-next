@@ -1,5 +1,5 @@
-var webpack = require('webpack')
-var path = require('path')
+const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
   context: __dirname,
@@ -41,14 +41,23 @@ module.exports = {
                 }
               ]
             ],
-            plugins: [require('babel-plugin-transform-object-rest-spread')]
+            plugins: [
+              require('babel-plugin-transform-object-rest-spread'),
+              require('babel-plugin-transform-es2015-typeof-symbol')
+            ]
           }
         }
       },
       // less loader
       {
         test: /\.less$/,
+        exclude: /\.shadow\.less$/,
         loaders: ['style-loader', 'css-loader', 'less-loader']
+      },
+      // ShadowDom inline string styles
+      {
+        test: /\.shadow\.css$/,
+        loaders: ['to-string-loader', 'css-loader']
       }
     ]
   },

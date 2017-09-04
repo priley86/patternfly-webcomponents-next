@@ -58,8 +58,9 @@ module.exports = {
         test: /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)$/,
         loader: 'url-loader?name=[name].[hash:20].[ext]&limit=10000'
       },
+      // Component css imported to Webpack
       {
-        exclude: [path.join(process.cwd(), 'src/styles.css')],
+        exclude: [path.join(process.cwd(), 'src/styles.css'), /\.shadow\.css$/],
         test: /\.css$/,
         loaders: [
           'exports-loader?module.exports.toString()',
@@ -67,16 +68,12 @@ module.exports = {
           'postcss-loader'
         ]
       },
+      // Shadow Dom inline css string styles
       {
-        exclude: [path.join(process.cwd(), 'src/styles.css')],
-        test: /\.scss$|\.sass$/,
-        loaders: [
-          'exports-loader?module.exports.toString()',
-          'css-loader?{"sourceMap":false,"importLoaders":1}',
-          'postcss-loader',
-          'sass-loader'
-        ]
+        test: /\.shadow\.css$/,
+        loaders: ['to-string-loader', 'css-loader']
       },
+      // Component Less imported to Webpack
       {
         exclude: [path.join(process.cwd(), 'src/styles.css')],
         test: /\.less$/,
@@ -87,8 +84,10 @@ module.exports = {
           'less-loader'
         ]
       },
+      // App CSS extracted to .css files
       {
         include: [path.join(process.cwd(), 'src/styles.css')],
+        exclude: /\.shadow\.css$/,
         test: /\.css$/,
         loaders: ExtractTextPlugin.extract({
           use: [
@@ -99,19 +98,7 @@ module.exports = {
           publicPath: ''
         })
       },
-      {
-        include: [path.join(process.cwd(), 'src/styles.css')],
-        test: /\.scss$|\.sass$/,
-        loaders: ExtractTextPlugin.extract({
-          use: [
-            'css-loader?{"sourceMap":false,"importLoaders":1}',
-            'postcss-loader',
-            'sass-loader'
-          ],
-          fallback: 'style-loader',
-          publicPath: ''
-        })
-      },
+      // App LESS extracted to .css files
       {
         include: [path.join(process.cwd(), 'src/styles.css')],
         test: /\.less$/,
@@ -125,6 +112,7 @@ module.exports = {
           publicPath: ''
         })
       },
+      // Typescript
       {
         test: /\.tsx?$/,
         loader: '@ngtools/webpack'

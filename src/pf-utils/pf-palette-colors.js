@@ -1,4 +1,7 @@
-/** ---------Patternfly Web Components Palette----------**/
+/**
+ * pf-palette-colors.js
+ * Color Palette for Patternfly Web Components
+ */
 
 let pfPaletteColors = {
   black: '#030303',
