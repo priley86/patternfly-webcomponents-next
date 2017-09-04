@@ -17,6 +17,7 @@
     "test:all": "npm-run-all --serial test test:react test:angular",
     "test:react": "cd frameworks/react && npm run test",
     "test:angular": "cd frameworks/angular && npm run test",
+    "prepublish": "npm run build",
     "semantic-release":
       "semantic-release pre && npm publish && semantic-release post"
   },
@@ -24,8 +25,8 @@
     "type": "git",
     "url": "git+https://github.com/patternfly/patternfly-webcomponents.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Red Hat",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/patternfly/patternfly-webcomponents/issues"
   },

@@ -1,0 +1,39 @@
+language: node_js
+node_js:
+- '8'
+dist: trusty # needs Ubuntu Trusty
+sudo: false  # no need for virtualization.
+addons:
+  chrome: stable # have Travis install chrome stable.
+cache:
+  directories:
+  - node_modules
+env:
+  global:
+  - ENCRYPTION_LABEL: "b601314e09dc"
+  - COMMIT_AUTHOR_EMAIL: "patternfly-build@redhat.com"
+  - COMMIT_AUTHOR_USERNAME: "patternfly-build"
+  - TRIGGER_REPO_SLUG: "patternfly/patternfly-webcomponents"
+  - TRIGGER_REPO_BRANCH: "master"
+  matrix:
+  - RUN_DIR: "./"
+  - RUN_DIR: "frameworks/angular"
+  - RUN_DIR: "frameworks/react"
+
+before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+install: true
+notifications:
+  email: false
+before_script:
+- npm prune
+script:
+- cd $RUN_DIR && npm install && npm run test
+after_success:
+#- npm run semantic-release
+#- ./release.sh
+branches:
+  except:
+  - "/^v\\d+\\.\\d+\\.\\d+$/"

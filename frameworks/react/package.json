@@ -7,10 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/patternfly/patternfly-webcomponents.git"
   },
-  "keywords": [
-    "webcomponents",
-    "patternfly"
-  ],
+  "keywords": ["webcomponents", "patternfly"],
   "author": "Red Hat",
   "license": "Apache-2.0",
   "bugs": {
