@@ -27,8 +27,6 @@ before_install:
 install: true
 notifications:
   email: false
-before_script:
-- npm prune
 script:
 - cd $RUN_DIR && npm install && npm run test
 after_success:
