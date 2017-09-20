@@ -1,9 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved, import/extensions */
-
-// Web Component polyfills
-import '../src/polyfills'
-
 import { configure } from '@storybook/angular'
+import '../src/polyfills'
+import './patternfly.less'
 
 const req = require.context('../src', true, /.stories.ts$/)
 
