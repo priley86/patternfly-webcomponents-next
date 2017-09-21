@@ -98,7 +98,6 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.3.2",
     "typescript": "^2.4.0",
-    "uglify-js": "github:mishoo/UglifyJS2#harmony",
     "url-loader": "^0.5.7",
     "webpack-dev-server": "~2.3.0"
   }
