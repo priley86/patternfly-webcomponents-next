@@ -1,0 +1,18 @@
+:host > div {
+  color: #37a0ce;
+}
+
+:host:not(:defined) {
+  /* Pre-style, give layout, replicate app-drawer's eventual styles, etc.
+   * https://skatejs.gitbooks.io/skatejs/content/docs/recipes/preventing-FOUC.html
+  */
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Fow how to style slotted content see:
+  https://www.polymer-project.org/2.0/docs/devguide/style-shadow-dom#style-slotted-content-distributed-children
+*/
+::slotted([slot='description']) {
+  color: #3f9c35;
+}

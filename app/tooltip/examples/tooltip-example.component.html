@@ -1,0 +1,23 @@
+<main>
+  <h2> Tooltip </h2>
+  <hr/>
+
+  <div>
+    <div>
+      <pf-tooltip [attr.placement]="placement" [attr.target-selector]="targetSelector" [attr.container-selector]="containerSelector"
+        [attr.animation]="animation" [attr.delay]="delay" [attr.duration]="duration" [innerHTML]="tooltipText">
+      </pf-tooltip>
+      <button id="btn-right" class="btn btn-danger" aria-describedby="tooltip-right">Right</button> &nbsp;&nbsp;
+      <pf-tooltip id="tooltip-top" placement="top" targetselector="#btn-top" target-selector="#btn-top">Tooltip top</pf-tooltip>
+      <button id="btn-top" class="btn btn-default" aria-describedby="tooltip-top">Top</button> &nbsp;&nbsp;
+      <pf-tooltip id="tooltip-bottom" placement="bottom" targetselector="#btn-bottom" target-selector="#btn-bottom">Tooltip bottom</pf-tooltip>
+      <button id="btn-bottom" class="btn btn-warning" aria-describedby="tooltip-bottom">Bottom</button> &nbsp;&nbsp;
+      <pf-tooltip id="tooltip-left" placement="left" targetselector="#btn-left" target-selector="#btn-left">Tooltip left</pf-tooltip>
+      <button id="btn-left" class="btn btn-primary" aria-describedby="tooltip-left">Left</button></div><br>
+    <h3>Off Screen Adjustment</h3>
+    <div>
+      <pf-tooltip id="tooltip-left-no-view" placement="left" targetselector="#btn-left-no-view" target-selector="#btn-left-no-view">Tooltip left but not in view</pf-tooltip><button id="btn-left-no-view" class="btn btn-primary" aria-describedby="tooltip-left-no-view">Left</button></div>
+    <div style="margin-left: 200px;">
+      <pf-tooltip id="tooltip-left-view" placement="left" targetselector="#btn-left-view" target-selector="#btn-left-view">Tooltip Left</pf-tooltip><button id="btn-left-view" class="btn btn-primary" aria-describedby="tooltip-left-view">Left</button></div>
+  </div>
+</main>
