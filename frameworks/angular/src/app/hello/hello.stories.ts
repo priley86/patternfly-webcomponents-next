@@ -1,11 +1,18 @@
 import { storiesOf } from '@storybook/angular';
 import { HelloExampleComponent } from './examples/hello-example.component';
 
-storiesOf('Hello', module).add('Hello Skate JS', () => {
-  return {
-    component: HelloExampleComponent,
-    props: {
-      name: 'I 💗 Web Components'
-    }
-  };
-});
+import { withKnobs, text } from '@storybook/addon-knobs/angular';
+
+storiesOf('Hello', module)
+  .addDecorator(withKnobs)
+  .add('Hello Skate JS', () => {
+    const name = 'I 💗 Web Components';
+    const description = text('Description', ' I am inside the slot!');
+    return {
+      component: HelloExampleComponent,
+      props: {
+        name,
+        description
+      }
+    };
+  });

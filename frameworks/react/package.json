@@ -7,10 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/patternfly/patternfly-webcomponents.git"
   },
-  "keywords": [
-    "webcomponents",
-    "patternfly"
-  ],
+  "keywords": ["webcomponents", "patternfly"],
   "author": "Red Hat",
   "license": "Apache-2.0",
   "bugs": {
@@ -89,7 +86,7 @@
     "build-storybook": "npm run webcomponents && build-storybook -c storybook -s ./public -o .out",
     "storybook:deploy": "storybook-to-ghpages",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "webcomponents": "mkdir -p src/web-components && cp -r ../../src/*  src/web-components"
+    "webcomponents": "rm -rf src/app/web-components && mkdir -p src/web-components && cp -r ../../src/*  src/web-components"
   },
   "czConfig": {
     "path": "node_modules/cz-conventional-changelog"

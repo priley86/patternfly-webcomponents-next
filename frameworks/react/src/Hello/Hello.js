@@ -9,13 +9,19 @@ define(PfHello)
 /**
  * Hello Component for Patternfly React
  */
-const Hello = ({ name }) => {
+const Hello = ({ name, children }) => {
   const attributes = { name: name }
-  return <pf-hello {...attributes} />
+  return (
+    <pf-hello {...attributes}>
+      {children}
+    </pf-hello>
+  )
 }
 Hello.propTypes = {
   /** the name attribute  */
-  name: PropTypes.string
+  name: PropTypes.string,
+  /** children nodes */
+  children: PropTypes.node
 }
 Hello.defaultProps = {
   name: 'I 💗 Web Components!'

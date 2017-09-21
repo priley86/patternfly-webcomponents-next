@@ -28,11 +28,29 @@ stories.addDecorator(
 
 stories.addWithInfo('Hello', '', () => {
   const name = text('Name', "I'm sourced from a Storybook Text Knob")
+  const slotText = text('Slot', "I'm inside the slot!")
+
+  // React does not natively support slots until React 16, until then use a ref
+  // https://github.com/skatejs/skatejs/issues/1096
+  const slot = (name = '') => {
+    return {
+      ref: e => {
+        if (e) {
+          e.setAttribute('slot', name)
+        }
+      }
+    }
+  }
+
   return (
     <div>
       <Hello name="Xuebin" />
       <Hello name="Patrick" />
-      <Hello />
+      <Hello>
+        <span {...slot('description')}>
+          &nbsp; {slotText}
+        </span>
+      </Hello>
       <Hello name={name} />
     </div>
   )

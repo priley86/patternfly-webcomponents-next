@@ -39,7 +39,11 @@ class PfHello extends skate.Component {
     return skate.h(
       'div',
       skate.h('style', this.css()),
-      skate.h('p', `Hello from the Shadow DOM, ${name}!`)
+      skate.h(
+        'p',
+        `Hello from the Shadow DOM, ${name}!`,
+        skate.h('slot', { name: 'description' })
+      )
     )
   }
 }

@@ -9,3 +9,10 @@
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
+
+/* Fow how to style slotted content see:
+  https://www.polymer-project.org/2.0/docs/devguide/style-shadow-dom#style-slotted-content-distributed-children
+*/
+::slotted([slot='description']) {
+  color: #3f9c35;
+}
